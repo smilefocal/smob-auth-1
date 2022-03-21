@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:strathmoresesc/authentication/bloc/auth_bar_cubit.dart';
 import 'package:strathmoresesc/authentication/screens/authentication_screen.dart';
+import 'package:strathmoresesc/home/screens/feeds.dart';
 
 class RouteGenerator {
   static Route<dynamic> generateRoute(RouteSettings settings) {
@@ -12,12 +13,16 @@ class RouteGenerator {
         return MaterialPageRoute(
           builder: (_) => BlocProvider(
             create: (context) => AuthBarCubit(),
-            child: AuthenticationScreen(),
+            child: const AuthenticationScreen(),
           ),
+        );
+      case '/homeFeeds':
+        return MaterialPageRoute(
+          builder: (_) => const FeedsScreen(),
         );
       default:
         return MaterialPageRoute(
-          builder: (_) => ErrorScreen(),
+          builder: (_) => const ErrorScreen(),
         );
     }
   }
