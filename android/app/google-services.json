@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "527742317531",
+    "project_id": "strathmoresesc",
+    "storage_bucket": "strathmoresesc.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:527742317531:android:972363be72ab3be94a2dfe",
+        "android_client_info": {
+          "package_name": "com.simiyu.strathmoresesc"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "527742317531-a6a5abjqahtu7558h9l9c9efi0k1v04t.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.simiyu.strathmoresesc",
+            "certificate_hash": "5fd11b1e2404879a570344bc5f4d0b639faafc8e"
+          }
+        },
+        {
+          "client_id": "527742317531-giqt8irj1g9pmtt0pt7nkfsagt004npd.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC4lbMiTuKaBrYktmOkWZYW-XFWa0f13Q0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "527742317531-giqt8irj1g9pmtt0pt7nkfsagt004npd.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

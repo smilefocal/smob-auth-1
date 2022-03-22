@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:strathmoresesc/authentication/bloc/auth_bar_cubit.dart';
@@ -17,14 +18,21 @@ class RouteGenerator {
           ),
         );
       case '/homeFeeds':
-        return MaterialPageRoute(
-          builder: (_) => const FeedsScreen(),
-        );
+        //if the argument received is of type user, then we push it.
+        if (args is User) {
+          return MaterialPageRoute(
+            builder: (_) => FeedsScreen(user: args),
+          );
+        }
+        break;
       default:
         return MaterialPageRoute(
           builder: (_) => const ErrorScreen(),
         );
     }
+    return MaterialPageRoute(
+      builder: (_) => const ErrorScreen(),
+    );
   }
 }
 
@@ -35,7 +43,14 @@ class ErrorScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return const Scaffold(
       body: Center(
-        child: Text('Path undefined'),
+        child: Text(
+          'Path undefined',
+          style: TextStyle(
+            fontFamily: 'Battambang',
+            fontSize: 20,
+            fontWeight: FontWeight.w400,
+          ),
+        ),
       ),
     );
   }

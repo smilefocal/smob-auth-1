@@ -1,7 +1,9 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:lottie/lottie.dart';
 import 'package:strathmoresesc/authentication/bloc/auth_bar_cubit.dart';
+import 'package:strathmoresesc/authentication/bloc/authentication.dart';
 
 class AuthenticationScreen extends StatelessWidget {
   const AuthenticationScreen({Key? key}) : super(key: key);
@@ -131,7 +133,17 @@ class AuthenticationScreen extends StatelessWidget {
                 height: 15,
               ),
               OutlinedButton(
-                onPressed: () {},
+                onPressed: () async {
+                  try {
+                    UserCredential userCredential =
+                        await Authentication().signInWithGoogle();
+                    Navigator.of(context).pushNamed('/homeFeeds',
+                        arguments: userCredential.user);
+                  } catch (e) {
+                    ScaffoldMessenger.of(context)
+                        .showSnackBar(SnackBar(content: Text('$e')));
+                  }
+                },
                 child: const Text('Continue with Google'),
               ),
             ],

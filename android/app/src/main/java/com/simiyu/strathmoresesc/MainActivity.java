@@ -1,4 +1,4 @@
-package com.example.strathmoresesc;
+package com.simiyu.strathmoresesc;
 
 import io.flutter.embedding.android.FlutterActivity;
 

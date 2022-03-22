@@ -1,7 +1,10 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 class FeedsScreen extends StatelessWidget {
-  const FeedsScreen({Key? key}) : super(key: key);
+  const FeedsScreen({Key? key, required this.user}) : super(key: key);
+  //the user object.
+  final User user;
 
   @override
   Widget build(BuildContext context) {
@@ -24,14 +27,14 @@ class FeedsScreen extends StatelessWidget {
               shrinkWrap: true,
               children: [
                 Text(
-                  'Daniel Simiyu',
-                  style: TextStyle(
+                  '${user.displayName}',
+                  style: const TextStyle(
                     fontFamily: 'Battambang',
                     fontWeight: FontWeight.w300,
                     fontSize: 20,
                   ),
                 ),
-                Text(
+                const Text(
                   'Joined: 12th Feb 2020',
                   style: TextStyle(
                     fontFamily: 'Battambang',
@@ -40,11 +43,11 @@ class FeedsScreen extends StatelessWidget {
                   ),
                 ),
                 ListTile(
-                  leading: Icon(
+                  leading: const Icon(
                     Icons.verified,
                     color: Colors.green,
                   ),
-                  title: Text('Senior Dev',
+                  title: const Text('Senior Dev',
                       style: TextStyle(
                         fontFamily: 'Battambang',
                         fontWeight: FontWeight.w100,
@@ -52,7 +55,7 @@ class FeedsScreen extends StatelessWidget {
                       )),
                   trailing: IconButton(
                       onPressed: () {},
-                      icon: Icon(
+                      icon: const Icon(
                         Icons.change_circle_rounded,
                         color: Colors.brown,
                       )),
@@ -147,6 +150,11 @@ class FeedsScreen extends StatelessWidget {
                 fontSize: 15,
               ),
             ),
+            onTap: () {
+              FirebaseAuth.instance.signOut().whenComplete(() {
+                ///
+              });
+            },
           ),
         ],
       )),
