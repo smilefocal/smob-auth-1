@@ -19,6 +19,5 @@ class LoadingScreen extends StatelessWidget {
         ),
       ),
     );
-    ;
   }
 }

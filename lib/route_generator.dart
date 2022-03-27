@@ -7,13 +7,14 @@ import 'package:strathmoresesc/home/screens/feeds.dart';
 
 class RouteGenerator {
   static Route<dynamic> generateRoute(RouteSettings settings) {
-    //get arguments passed in while calling Navigator.pushNamed
     final args = settings.arguments;
     switch (settings.name) {
       case '/':
         return MaterialPageRoute(
-          builder: (_) => BlocProvider(
-            create: (context) => AuthBarCubit(),
+          builder: (_) => MultiBlocProvider(
+            providers: [
+              BlocProvider<AuthBarCubit>(create: (context) => AuthBarCubit()),
+            ],
             child: const AuthenticationScreen(),
           ),
         );

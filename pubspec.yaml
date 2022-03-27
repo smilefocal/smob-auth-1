@@ -40,6 +40,8 @@ dependencies:
   firebase_auth: ^3.3.11
   google_sign_in: ^5.2.4
   flutter_spinkit: ^5.1.0
+  equatable: ^2.0.3
+  rxdart: ^0.27.3
 
 
 
@@ -57,7 +59,7 @@ dev_dependencies:
   flutter_launcher_icons: ^0.9.2
 
 flutter_icons:
-  image_path: "assets/images/anon_cards.png"
+  image_path: "assets/images/sesc_logo.png"
   android: true
   ios: true
 
