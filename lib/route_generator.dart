@@ -2,6 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:strathmoresesc/authentication/bloc/auth_bar_cubit.dart';
+import 'package:strathmoresesc/authentication/bloc/auth_loading_cubit.dart';
 import 'package:strathmoresesc/authentication/screens/authentication_screen.dart';
 import 'package:strathmoresesc/home/screens/feeds.dart';
 
@@ -13,7 +14,13 @@ class RouteGenerator {
         return MaterialPageRoute(
           builder: (_) => MultiBlocProvider(
             providers: [
+              ///this controls the animation of the container, and the form
+              ///appearance; i.e. whether login or signup view is displayed.
               BlocProvider<AuthBarCubit>(create: (context) => AuthBarCubit()),
+
+              ///this controls the appearance of the loading indicator.
+              BlocProvider<AuthLoadingCubit>(
+                  create: (context) => AuthLoadingCubit()),
             ],
             child: const AuthenticationScreen(),
           ),

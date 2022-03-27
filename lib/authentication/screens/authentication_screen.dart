@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:lottie/lottie.dart';
 import 'package:strathmoresesc/authentication/bloc/auth_bar_cubit.dart';
+import 'package:strathmoresesc/authentication/bloc/auth_loading_cubit.dart';
 import 'package:strathmoresesc/authentication/bloc/authentication.dart';
 
 class AuthenticationScreen extends StatelessWidget {
@@ -115,12 +116,7 @@ class AuthenticationScreen extends StatelessWidget {
                               ),
                               SizedBox(
                                 width: MediaQuery.of(context).size.width - 80,
-                                child: OutlinedButton(
-                                  onPressed: () {},
-                                  child: !state
-                                      ? const Text('Create Account')
-                                      : const Text('Login'),
-                                ),
+                                child: const _CreateAccountOrLoginButton(),
                               ),
                               SizedBox(
                                 width: MediaQuery.of(context).size.width - 80,
@@ -141,25 +137,63 @@ class AuthenticationScreen extends StatelessWidget {
                 const SizedBox(
                   height: 15,
                 ),
-                OutlinedButton(
-                  onPressed: () async {
-                    try {
-                      UserCredential userCredential =
-                          await Authentication().signInWithGoogle();
-                      Navigator.of(context).pushReplacementNamed('/homeFeeds',
-                          arguments: userCredential.user);
-                    } catch (e) {
-                      ScaffoldMessenger.of(context)
-                          .showSnackBar(SnackBar(content: Text('$e')));
-                    }
-                  },
-                  child: const Text('Continue with Google'),
-                ),
+                const _ContinueWithGoogleButton(),
               ],
             ),
           ),
         ),
       ),
+    );
+  }
+}
+
+///create account / login button
+class _CreateAccountOrLoginButton extends StatelessWidget {
+  const _CreateAccountOrLoginButton({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return BlocBuilder<AuthLoadingCubit, bool>(
+      builder: (context, isLoading) {
+        return BlocBuilder<AuthBarCubit, bool>(
+          builder: (context, state) {
+            return OutlinedButton(
+              onPressed: () {
+                //todo: remember to trigger change the state of isLoading when
+                //todo: the button is pressed.
+              },
+              child: !isLoading
+                  ? const CircularProgressIndicator()
+                  : !state
+                      ? const Text('Create Account')
+                      : const Text('Login'),
+            );
+          },
+        );
+      },
+    );
+  }
+}
+
+///continue with google button
+class _ContinueWithGoogleButton extends StatelessWidget {
+  const _ContinueWithGoogleButton({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return OutlinedButton(
+      onPressed: () async {
+        try {
+          UserCredential userCredential =
+              await Authentication().signInWithGoogle();
+          Navigator.of(context).pushReplacementNamed('/homeFeeds',
+              arguments: userCredential.user);
+        } catch (e) {
+          ScaffoldMessenger.of(context)
+              .showSnackBar(SnackBar(content: Text('$e')));
+        }
+      },
+      child: const Text('Continue with Google'),
     );
   }
 }
