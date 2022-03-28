@@ -1,5 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:strathmoresesc/home/screens/activities/floating_action_button_section.dart';
 import 'package:strathmoresesc/home/screens/my_drawer.dart';
 
 class FeedsScreen extends StatelessWidget {
@@ -10,19 +11,23 @@ class FeedsScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SafeArea(
-        child: Scaffold(
-      appBar: AppBar(
-        centerTitle: true,
-        backgroundColor: Colors.brown,
-        elevation: 0.0,
-        title: const Text(
-          'SESC COMMUNITY',
-          style: TextStyle(fontFamily: 'Battambang'),
+      child: Scaffold(
+        appBar: AppBar(
+          centerTitle: true,
+          backgroundColor: Colors.brown,
+          elevation: 0.0,
+          title: const Text(
+            'SESC COMMUNITY',
+            style: TextStyle(fontFamily: 'Battambang'),
+          ),
+        ),
+        drawer: MyDrawer(
+          user: user,
+        ),
+        floatingActionButton: FloatingActionButtonSection(
+          buildContext: context,
         ),
       ),
-      drawer: MyDrawer(
-        user: user,
-      ),
-    ));
+    );
   }
 }
