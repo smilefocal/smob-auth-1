@@ -90,26 +90,19 @@ class AuthenticationScreen extends StatelessWidget {
                           width: MediaQuery.of(context).size.width - 80,
                           child: Column(
                             children: [
-                              const TextField(
-                                decoration: InputDecoration(
-                                  label: Text('Email Address'),
-                                ),
-                              ),
-                              const TextField(
-                                obscureText: true,
-                                decoration: InputDecoration(
-                                  label: Text('Password'),
-                                ),
-                              ),
+                              const _EmailField(),
+                              const _PasswordField(),
                               //if the state is false, then that means we are creating a new
                               // account hence the syntax.
                               !state
-                                  ? const TextField(
-                                      obscureText: true,
-                                      decoration: InputDecoration(
-                                        label: Text('Confirm Password'),
-                                      ),
-                                    )
+                                  ? Builder(builder: (context) {
+                                      return const TextField(
+                                        obscureText: true,
+                                        decoration: InputDecoration(
+                                          label: Text('Confirm Password'),
+                                        ),
+                                      );
+                                    })
                                   : const SizedBox(),
                               const SizedBox(
                                 height: 40,
@@ -153,16 +146,17 @@ class _CreateAccountOrLoginButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    //
     return BlocBuilder<AuthLoadingCubit, bool>(
       builder: (context, isLoading) {
         return BlocBuilder<AuthBarCubit, bool>(
           builder: (context, state) {
             return OutlinedButton(
               onPressed: () {
-                //todo: remember to trigger change the state of isLoading when
-                //todo: the button is pressed.
+                context.read<AuthLoadingCubit>().activateLoading();
+                //
               },
-              child: !isLoading
+              child: isLoading
                   ? const CircularProgressIndicator()
                   : !state
                       ? const Text('Create Account')
@@ -194,6 +188,36 @@ class _ContinueWithGoogleButton extends StatelessWidget {
         }
       },
       child: const Text('Continue with Google'),
+    );
+  }
+}
+
+///the email field
+class _EmailField extends StatelessWidget {
+  const _EmailField({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return const TextField(
+      decoration: InputDecoration(
+        label: Text('Email Address'),
+        // errorText: snapshot.error,
+      ),
+    );
+  }
+}
+
+///the password field
+class _PasswordField extends StatelessWidget {
+  const _PasswordField({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return const TextField(
+      decoration: InputDecoration(
+        label: Text('Password'),
+        // errorText: snapshot.error,
+      ),
     );
   }
 }

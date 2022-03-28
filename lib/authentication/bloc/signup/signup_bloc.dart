@@ -1,8 +1,9 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:rxdart/rxdart.dart';
+import 'package:strathmoresesc/authentication/bloc/repository/authentication_repository.dart';
 import 'package:strathmoresesc/authentication/bloc/signup/signup_validators.dart';
 
-//
 class SignUpBloc extends Object with SignUpValidators {
   final _email = BehaviorSubject<String>();
   final _password = BehaviorSubject<String>();
@@ -36,7 +37,7 @@ class SignUpBloc extends Object with SignUpValidators {
       );
     } else {
       FocusScope.of(context).unfocus();
-      // signUp(context, validEmail, validPassword);
+      signUp(context: context, email: validEmail, password: validPassword);
       print(
           'Email is $validEmail and password is $validPassword and confirmPass is $validConfirmPassword');
     }
@@ -47,47 +48,45 @@ class SignUpBloc extends Object with SignUpValidators {
     _password.close();
     _confirmPassword.close();
   }
-  //
-  // // SignUp function
-  // Future<void> signUp(
-  //     BuildContext context, String userEmail, String userPassword) async {
-  //   try {
-  //     // create a new account
-  //     await FirebaseAuth.instance.createUserWithEmailAndPassword(
-  //         email: userEmail, password: userPassword);
-  //     //send an email verification after creating an account
-  //     User? user = FirebaseAuth.instance.currentUser;
-  //     await user!.sendEmailVerification();
-  //     //tell the user to check their email address for the verification link.
-  //     SchedulerBinding.instance.addPostFrameCallback((_) {
-  //       return
-  //     });
-  //     //show login page by changing state
-  //     //I decide to do this because it will default to the login interface.
-  //     Navigator.of(context)
-  //         .pushReplacement(MaterialPageRoute(builder: (BuildContext context) {
-  //       return MyApp();
-  //     }));
-  //   } on FirebaseAuthException catch (e) {
-  //     if (e.code == 'email-already-in-use') {
-  //       //
-  //       SchedulerBinding.instance.addPostFrameCallback((_) {
-  //         ScaffoldMessenger.of(context).showSnackBar(
-  //           const SnackBar(
-  //             content: Text(
-  //                 "Email address already registered! Login or reset password!"),
-  //             backgroundColor: Colors.redAccent,
-  //           ),
-  //         );
-  //       });
-  //     }
-  //   } catch (e) {
-  //     ScaffoldMessenger.of(context).showSnackBar(
-  //       const SnackBar(
-  //         content: const Text("An error has occurred please try again!"),
-  //         backgroundColor: Colors.redAccent,
-  //       ),
-  //     );
-  //   }
-  // }
+}
+
+Future<void> signUp({
+  required BuildContext context,
+  required String email,
+  required String password,
+}) async {
+  try {
+    await FirebaseAuth.instance
+        .createUserWithEmailAndPassword(
+      email: email,
+      password: password,
+    )
+        .then((value) async {
+      User? user = FirebaseAuth.instance.currentUser;
+      await user!.sendEmailVerification().whenComplete(
+            () => ScaffoldMessenger.of(context).showSnackBar(
+              const SnackBar(
+                content:
+                    Text('Check your email address for the verification link!'),
+                backgroundColor: Colors.green,
+              ),
+            ),
+          );
+    });
+  } on FirebaseAuthException catch (e) {
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        content:
+            Text(SignUpWithEmailAndPasswordFailure.fromCode(e.code).toString()),
+        backgroundColor: Colors.red,
+      ),
+    );
+  } catch (_) {
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        content: Text(const SignUpWithEmailAndPasswordFailure().toString()),
+        backgroundColor: Colors.red,
+      ),
+    );
+  }
 }

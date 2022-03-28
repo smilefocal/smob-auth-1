@@ -1,5 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:strathmoresesc/authentication/bloc/sign_out_logic.dart';
 
 class FeedsScreen extends StatelessWidget {
   const FeedsScreen({Key? key, required this.user}) : super(key: key);
@@ -63,7 +64,7 @@ class FeedsScreen extends StatelessWidget {
               ],
             ),
           ),
-          ListTile(
+          const ListTile(
             leading: Icon(
               Icons.people_alt_sharp,
               color: Colors.green,
@@ -75,7 +76,7 @@ class FeedsScreen extends StatelessWidget {
                   fontSize: 15,
                 )),
           ),
-          ListTile(
+          const ListTile(
             leading: Icon(
               Icons.event,
               color: Colors.green,
@@ -87,7 +88,7 @@ class FeedsScreen extends StatelessWidget {
                   fontSize: 15,
                 )),
           ),
-          ListTile(
+          const ListTile(
             leading: Icon(
               Icons.subscriptions,
               color: Colors.green,
@@ -99,7 +100,7 @@ class FeedsScreen extends StatelessWidget {
                   fontSize: 15,
                 )),
           ),
-          ListTile(
+          const ListTile(
             leading: Icon(
               Icons.tag_rounded,
               color: Colors.green,
@@ -111,7 +112,7 @@ class FeedsScreen extends StatelessWidget {
                   fontSize: 15,
                 )),
           ),
-          ListTile(
+          const ListTile(
             leading: Icon(
               Icons.newspaper_rounded,
               color: Colors.green,
@@ -123,7 +124,7 @@ class FeedsScreen extends StatelessWidget {
                   fontSize: 15,
                 )),
           ),
-          ListTile(
+          const ListTile(
             leading: Icon(
               Icons.bubble_chart,
               color: Colors.green,
@@ -138,11 +139,11 @@ class FeedsScreen extends StatelessWidget {
             ),
           ),
           ListTile(
-            leading: Icon(
+            leading: const Icon(
               Icons.exit_to_app_rounded,
               color: Colors.green,
             ),
-            title: Text(
+            title: const Text(
               'SignOut',
               style: TextStyle(
                 fontFamily: 'Battambang',
@@ -151,9 +152,7 @@ class FeedsScreen extends StatelessWidget {
               ),
             ),
             onTap: () {
-              FirebaseAuth.instance.signOut().whenComplete(() {
-                ///
-              });
+              SignOutLogic().logOut(context);
             },
           ),
         ],
