@@ -24,9 +24,7 @@ class FeedsScreen extends StatelessWidget {
         drawer: MyDrawer(
           user: user,
         ),
-        floatingActionButton: FloatingActionButtonSection(
-          buildContext: context,
-        ),
+        floatingActionButton: FloatingActionButtonSection(user: user),
       ),
     );
   }

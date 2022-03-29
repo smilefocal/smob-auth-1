@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:strathmoresesc/authentication/bloc/auth_bar_cubit.dart';
 import 'package:strathmoresesc/authentication/bloc/auth_loading_cubit.dart';
 import 'package:strathmoresesc/authentication/screens/authentication_screen.dart';
+import 'package:strathmoresesc/home/screens/activities/add_activity_screen.dart';
 import 'package:strathmoresesc/home/screens/feeds.dart';
 
 class RouteGenerator {
@@ -30,6 +31,15 @@ class RouteGenerator {
         if (args is User) {
           return MaterialPageRoute(
             builder: (_) => FeedsScreen(user: args),
+          );
+        }
+        break;
+      case '/addActivity':
+        if (args is User) {
+          return MaterialPageRoute(
+            builder: (_) => AddActivityScreen(
+              user: args,
+            ),
           );
         }
         break;
