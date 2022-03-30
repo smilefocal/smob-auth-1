@@ -5,6 +5,7 @@ import 'package:strathmoresesc/authentication/bloc/auth_bar_cubit.dart';
 import 'package:strathmoresesc/authentication/bloc/auth_loading_cubit.dart';
 import 'package:strathmoresesc/authentication/screens/authentication_screen.dart';
 import 'package:strathmoresesc/home/screens/activities/add_activity_screen.dart';
+import 'package:strathmoresesc/home/screens/activities/blocs/add_text_activity/add_text_activity_provider.dart';
 import 'package:strathmoresesc/home/screens/feeds.dart';
 
 class RouteGenerator {
@@ -37,8 +38,10 @@ class RouteGenerator {
       case '/addActivity':
         if (args is User) {
           return MaterialPageRoute(
-            builder: (_) => AddActivityScreen(
-              user: args,
+            builder: (_) => AddTextActivityProvider(
+              child: AddActivityScreen(
+                user: args,
+              ),
             ),
           );
         }

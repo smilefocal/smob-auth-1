@@ -27,5 +27,5 @@ class LoadingScreen extends StatelessWidget {
 ButtonStyle buttonStyle = ButtonStyle(
     shape: MaterialStateProperty.all<RoundedRectangleBorder>(
         RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(18.0),
-            side: const BorderSide(color: Colors.red))));
+  borderRadius: BorderRadius.circular(18.0),
+)));
