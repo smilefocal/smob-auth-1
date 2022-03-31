@@ -21,9 +21,12 @@ class PublishMessage {
     ///
     await messages.add({
       'userID': user!.uid,
+      'userName': user.displayName,
       'message': messageInput,
       'date': currentDate,
       'time': currentTime,
+      'likes': 0,
+      'profilePic': user.photoURL,
     }).whenComplete(() {
       //return a snackBar
       ScaffoldMessenger.of(context!).showSnackBar(
