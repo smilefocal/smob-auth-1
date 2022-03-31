@@ -2,31 +2,51 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class FeedCard extends StatelessWidget {
-  const FeedCard({Key? key}) : super(key: key);
-
+  const FeedCard({Key? key, required this.data}) : super(key: key);
+  final Map<String, dynamic> data;
   @override
   Widget build(BuildContext context) {
     return Card(
       child: Column(
         children: [
-          Chip(label: Text('Wed 30th, April 2020')),
+          Chip(label: Text(data['date'])),
           ListTile(
             leading: CircleAvatar(
-              radius: 20,
+              radius: 20.0,
+              backgroundImage: NetworkImage(data['profilePic']),
+              backgroundColor: Colors.transparent,
             ),
-            title: Text(
-              'Daniel Simiyu [Senior Dev]',
-              style: TextStyle(
-                fontWeight: FontWeight.bold,
-              ),
+            title: Row(
+              children: [
+                Expanded(
+                  child: Text(
+                    data['userName'],
+                    style: const TextStyle(
+                      fontFamily: 'Battambang',
+                      fontWeight: FontWeight.bold,
+                      fontSize: 14,
+                    ),
+                  ),
+                  flex: 1,
+                ),
+                Expanded(
+                  flex: 1,
+                  child: Text(
+                    '@' + data['time'],
+                    style: const TextStyle(
+                      fontSize: 10,
+                    ),
+                  ),
+                )
+              ],
             ),
             subtitle: Text(
-              'shadjkcnjdncdcjndjc d cndjc djcndjksdc dcnjsndjkc jdnjksndjnc shadjkcnjdncdcjndjc d cndjc djcndjksdc dcnjsndjkc jdnjksndjnc',
-              style: TextStyle(fontSize: 15),
+              data['message'],
+              style: const TextStyle(fontSize: 15),
             ),
             trailing: IconButton(
               onPressed: () {},
-              icon: Icon(Icons.traffic),
+              icon: const Icon(Icons.traffic),
             ),
           ),
           Row(
@@ -39,7 +59,7 @@ class FeedCard extends StatelessWidget {
                   icon: const Icon(
                     FontAwesomeIcons.solidHeart,
                   ),
-                  label: const Text('23'),
+                  label: Text(data['likes'].toString()),
                   style: OutlinedButton.styleFrom(
                     side:
                         const BorderSide(width: 0.0, color: Colors.transparent),
@@ -50,10 +70,11 @@ class FeedCard extends StatelessWidget {
                 flex: 1,
                 child: OutlinedButton.icon(
                   onPressed: () {},
-                  icon: Icon(FontAwesomeIcons.comment),
-                  label: Text('23'),
+                  icon: const Icon(FontAwesomeIcons.comment),
+                  label: const Text('23'),
                   style: OutlinedButton.styleFrom(
-                    side: BorderSide(width: 0.0, color: Colors.transparent),
+                    side:
+                        const BorderSide(width: 0.0, color: Colors.transparent),
                   ),
                 ),
               ),
