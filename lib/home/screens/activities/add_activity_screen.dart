@@ -1,8 +1,10 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:strathmoresesc/constants.dart';
 import 'package:strathmoresesc/home/screens/activities/blocs/add_text_activity/add_text_activity_bloc.dart';
 import 'package:strathmoresesc/home/screens/activities/blocs/add_text_activity/add_text_activity_provider.dart';
+import 'package:strathmoresesc/home/screens/activities/blocs/bottom_nav_bar/bottom_nav_bar_cubit.dart';
 
 class AddActivityScreen extends StatelessWidget {
   const AddActivityScreen({Key? key, required this.user}) : super(key: key);
@@ -80,15 +82,23 @@ class AddActivityScreen extends StatelessWidget {
                 Expanded(
                   child: Column(
                     children: [
-                      AnimatedContainer(
-                        duration: const Duration(seconds: 3),
-                        height: MediaQuery.of(context).size.height / 1.5,
-                        width: MediaQuery.of(context).size.width / 1.5,
+                      BlocBuilder<BottomNavBarCubit, int>(
+                        builder: (context, state) {
+                          return AnimatedContainer(
+                            duration: const Duration(seconds: 3),
+                            height: MediaQuery.of(context).size.height / 1.5,
+                            width: MediaQuery.of(context).size.width / 1.5,
 
-                        ///todo: we can switch this depending on the value of
-                        ///todo: the bottomNavBar bloc.
-                        child:
-                            _MessageTextField(addTextActivityBloc: addTextBloc),
+                            ///todo: we can switch this depending on the value of
+                            ///todo: the bottomNavBar bloc.
+                            child: state == 0
+                                ? _MessageTextField(
+                                    addTextActivityBloc: addTextBloc)
+                                : state == 1
+                                    ? const _PollView()
+                                    : const _PollView(),
+                          );
+                        },
                       ),
                     ],
                   ),
@@ -97,15 +107,30 @@ class AddActivityScreen extends StatelessWidget {
             ),
           ],
         ),
-        bottomNavigationBar: BottomNavigationBar(
-          currentIndex: 1,
-          items: const [
-            BottomNavigationBarItem(
-                icon: Icon(Icons.text_fields), label: 'Normal'),
-            BottomNavigationBarItem(icon: Icon(Icons.poll), label: 'Poll'),
-            BottomNavigationBarItem(
-                icon: Icon(Icons.play_circle_outline), label: 'Media'),
-          ],
+        bottomNavigationBar: BlocBuilder<BottomNavBarCubit, int>(
+          builder: (context, state) {
+            return BottomNavigationBar(
+              currentIndex: state == 0
+                  ? 0
+                  : state == 1
+                      ? 1
+                      : 2,
+              onTap: (index) {
+                index == 0
+                    ? context.read<BottomNavBarCubit>().normalTextView()
+                    : index == 1
+                        ? context.read<BottomNavBarCubit>().pollView()
+                        : context.read<BottomNavBarCubit>().mediaView();
+              },
+              items: const [
+                BottomNavigationBarItem(
+                    icon: Icon(Icons.text_fields), label: 'Normal'),
+                BottomNavigationBarItem(icon: Icon(Icons.poll), label: 'Poll'),
+                BottomNavigationBarItem(
+                    icon: Icon(Icons.play_circle_outline), label: 'Media'),
+              ],
+            );
+          },
         ),
       ),
     );
@@ -160,5 +185,18 @@ class _PublishMessageButton extends StatelessWidget {
             child: const Text('Publish'),
           );
         });
+  }
+}
+
+///
+class _PollView extends StatelessWidget {
+  const _PollView({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      width: 50,
+      child: Text('This is thess pollview'),
+    );
   }
 }

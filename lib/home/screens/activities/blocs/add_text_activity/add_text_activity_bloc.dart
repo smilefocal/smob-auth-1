@@ -21,11 +21,12 @@ class AddTextActivityBloc extends Object with AddTextActivityValidator {
     final currentTime = AddTextDateFormatter().currentTime();
 
     PublishMessage().publishNewMessage(
-        user: user,
-        context: context,
-        messageInput: validMessage,
-        currentDate: currentDate,
-        currentTime: currentTime);
+      user: user,
+      context: context,
+      messageInput: validMessage,
+      currentDate: currentDate,
+      currentTime: currentTime,
+    );
   }
 
   dispose() {
