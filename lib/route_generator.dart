@@ -7,6 +7,7 @@ import 'package:strathmoresesc/authentication/screens/authentication_screen.dart
 import 'package:strathmoresesc/home/screens/activities/add_activity_screen.dart';
 import 'package:strathmoresesc/home/screens/activities/blocs/add_text_activity/add_text_activity_provider.dart';
 import 'package:strathmoresesc/home/screens/activities/blocs/bottom_nav_bar/bottom_nav_bar_cubit.dart';
+import 'package:strathmoresesc/home/screens/activities/polls/bloc/manage_textfields_bloc.dart';
 import 'package:strathmoresesc/home/screens/feeds.dart';
 
 class RouteGenerator {
@@ -42,8 +43,11 @@ class RouteGenerator {
             builder: (_) => AddTextActivityProvider(
               child: BlocProvider(
                 create: (context) => BottomNavBarCubit(),
-                child: AddActivityScreen(
-                  user: args,
+                child: BlocProvider(
+                  create: (context) => ManageTextFieldsBloc(),
+                  child: AddActivityScreen(
+                    user: args,
+                  ),
                 ),
               ),
             ),

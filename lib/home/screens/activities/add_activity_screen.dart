@@ -5,6 +5,7 @@ import 'package:strathmoresesc/constants.dart';
 import 'package:strathmoresesc/home/screens/activities/blocs/add_text_activity/add_text_activity_bloc.dart';
 import 'package:strathmoresesc/home/screens/activities/blocs/add_text_activity/add_text_activity_provider.dart';
 import 'package:strathmoresesc/home/screens/activities/blocs/bottom_nav_bar/bottom_nav_bar_cubit.dart';
+import 'package:strathmoresesc/home/screens/activities/polls/laura_polls.dart';
 
 class AddActivityScreen extends StatelessWidget {
   const AddActivityScreen({Key? key, required this.user}) : super(key: key);
@@ -95,7 +96,7 @@ class AddActivityScreen extends StatelessWidget {
                                 ? _MessageTextField(
                                     addTextActivityBloc: addTextBloc)
                                 : state == 1
-                                    ? const _PollView()
+                                    ? const LauraPolls()
                                     : const _PollView(),
                           );
                         },
@@ -196,7 +197,7 @@ class _PollView extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       width: 50,
-      child: Text('This is thess pollview'),
+      child: Text('This is the pollview'),
     );
   }
 }
