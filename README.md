@@ -1,6 +1,6 @@
-# Strathmore SESC
+# SESC Mobile
 
-This is the official mobile application for Strathmore SESC.
+This is my submission of the authentication module for the official mobile application of Strathmore SESC.
 
 ## Getting Started
 
